@@ -121,11 +121,13 @@ export default class BloomFilter extends BaseFilter implements ClassicFilter<Has
    * const filter = new BloomFilter(15, 0.1);
    * filter.add('foo');
    */
-  add (element: HashableInput): void {
+  add (element: HashableInput): number[] {
     const indexes = getDistinctIndices(element, this._size, this._nbHashes, this.seed)
     for (let i = 0; i < indexes.length; i++) {
       this._filter.add(indexes[i]);
     }
+    
+    return indexes
   }
 
   /**
